@@ -1,10 +1,13 @@
+var gameDeck = new Array();
+var glIndex = 0;
+var compDeck = new Array();
 var myDeck = new Array();
 
 function War() {
   // vars used for game
-  //myDeck = new Array(52);
+  //gameDeck = new Array(52);
   //this.compDeck = 0;
-  //this.myDeck = 0;
+  //this.gameDeck = 0;
 }
 
 War.prototype = new War();
@@ -15,33 +18,33 @@ War.prototype.createDeck = function() {
   for(var x = 1; x <= 13; ++x) {
     if (x == 1) {
       for (var y = 0; y < 4; ++y) {
-        myDeck[index] = 'Ace of ' + y;
+        gameDeck[index] = 'Ace of ' + y;
         ++index;
-        //console.log('In the Aces');
+        //document.write('In the Aces');
       }
     } else if (x == 11) {
       for (var y = 0; y < 4; ++y) {
-        myDeck[index] = 'Jack of ' + y;
+        gameDeck[index] = 'Jack of ' + y;
         ++index;
-        //console.log('In the Jacks');
+        //document.write('In the Jacks');
       }
     } else if (x == 12) {
       for (var y = 0; y < 4; ++y) {
-        myDeck[index] = 'Queen of ' + y;
+        gameDeck[index] = 'Queen of ' + y;
         ++index;
-        //console.log('In the Queens');
+        //document.write('In the Queens');
       }
     } else if (x == 13) {
       for (var y = 0; y < 4; ++y) {
-        myDeck[index] = 'King of ' + y;
+        gameDeck[index] = 'King of ' + y;
         ++index;
-        //console.log('In the Kings');
+        //document.write('In the Kings');
       }
     } else {
       for (var y = 0; y < 4; ++y) {
-        myDeck[index] = x + '\'s of ' + y;
+        gameDeck[index] = x + '\'s of ' + y;
         ++index;
-        //console.log('In the regular numbers');
+        //document.write('In the regular numbers');
       }
     }
   }
@@ -49,20 +52,26 @@ War.prototype.createDeck = function() {
   
 War.prototype.shuffleDeck = function() {
   // TODO: there has to be a more efficient way of doing this??
-  for (var i = 0; i < myDeck.length; ++i) {
+  for (var i = 0; i < gameDeck.length; ++i) {
     var randomNum = Math.floor(Math.random()*52);
-    var temp = myDeck[randomNum];
-    myDeck[randomNum] = myDeck[i];
-    myDeck[i] = temp;
+    var temp = gameDeck[randomNum];
+    gameDeck[randomNum] = gameDeck[i];
+    gameDeck[i] = temp;
   }
 }
   
 War.prototype.splitDeck = function() {
-  // TODO: splits deck between compDeck and myDeck
+  // TODO: splits deck between compDeck and gameDeck
+  var j = 0;
+  for (var i = 0; i < gameDeck.length; i += 2) {
+    myDeck[j] = gameDeck[i];
+    compDeck[j] = gameDeck[i+1];
+    ++j;
+  }
 }
   
 War.prototype.drawCards = function() {
-  // TODO: draws a card from compDeck and myDeck
+  // TODO: draws a card from compDeck and gameDeck
 }
   
 War.prototype.compareCards = function() {
@@ -78,17 +87,29 @@ War.prototype.addCardsToDeck = function() {
 }
   
 War.prototype.display = function() {
-  // only displays to console
   // TODO: displays the cards to html
-  console.log('I am in display function');
+  for (var i = 0; i < gameDeck.length; ++i) {
+    document.write(gameDeck[i] + '<br />');
+  }
+}
+
+War.prototype.displayBothDecks = function() {
+  document.write('<p />My deck.<br />');
   for (var i = 0; i < myDeck.length; ++i) {
-    console.log(myDeck[i]);
+    document.write(myDeck[i] + '<br />');
+  }
+  document.write('<p />Comp deck.<br />');
+  for (var i = 0; i < compDeck.length; ++i) {
+    document.write(compDeck[i] + '<br />');
   }
 }
 
 
 var myObject = new War();
 myObject.createDeck();
-myObject.display();
+//myObject.display();
 myObject.shuffleDeck();
 myObject.display();
+myObject.splitDeck();
+myObject.displayBothDecks();
+
