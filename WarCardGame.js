@@ -45,11 +45,16 @@ War.prototype.createDeck = function() {
       }
     }
   }
-  console.log('Done.');
 }
   
 War.prototype.shuffleDeck = function() {
-  // TODO: shuffles deck
+  // TODO: there has to be a more efficient way of doing this??
+  for (var i = 0; i < myDeck.length; ++i) {
+    var randomNum = Math.floor(Math.random()*52);
+    var temp = myDeck[randomNum];
+    myDeck[randomNum] = myDeck[i];
+    myDeck[i] = temp;
+  }
 }
   
 War.prototype.splitDeck = function() {
@@ -73,8 +78,8 @@ War.prototype.addCardsToDeck = function() {
 }
   
 War.prototype.display = function() {
-  // TODO: displays the cards on the table
-  // idk if I need this yet
+  // only displays to console
+  // TODO: displays the cards to html
   console.log('I am in display function');
   for (var i = 0; i < myDeck.length; ++i) {
     console.log(myDeck[i]);
@@ -84,4 +89,6 @@ War.prototype.display = function() {
 
 var myObject = new War();
 myObject.createDeck();
+myObject.display();
+myObject.shuffleDeck();
 myObject.display();
