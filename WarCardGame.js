@@ -1,5 +1,6 @@
 var gameDeck = new Array();
-var glIndex = 0;
+var compDeckIndex = 0;
+var myDeckIndex = 0;
 var compDeck = new Array();
 var myDeck = new Array();
 
@@ -71,7 +72,18 @@ War.prototype.splitDeck = function() {
 }
   
 War.prototype.drawCards = function() {
+  if (myDeckIndex >= myDeck.length) {
+    myDeckIndex = 0;
+    //shuffle myDeck?
+  } 
+  if (compDeckIndex >= compDeck.length) {
+    compDeckIndex = 0;
+    // shuffle compDeck?
+  }
   // TODO: draws a card from compDeck and gameDeck
+  document.write(myDeck[myDeckIndex] + ' vs. ' + compDeck[compDeckIndex]);
+  ++myDeckIndex;
+  ++compDeckIndex;
 }
   
 War.prototype.compareCards = function() {
@@ -106,10 +118,11 @@ War.prototype.displayBothDecks = function() {
 
 
 var myObject = new War();
+
 myObject.createDeck();
-//myObject.display();
 myObject.shuffleDeck();
-myObject.display();
 myObject.splitDeck();
-myObject.displayBothDecks();
+myObject.drawCards();
+myObject.drawCards();
+
 
