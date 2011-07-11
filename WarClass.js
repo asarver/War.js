@@ -28,5 +28,3 @@ WarCardGame.prototype.addToDeck = function() {
 };
 
 var newGame = new WarCardGame();
-newGame.displayDeck();
-

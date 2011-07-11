@@ -15,15 +15,15 @@ Card.prototype.getCardSuit = function() {
 Card.prototype.toString = function() {
   var name = '';
   if (this.value == 1) {
-	  name = 'Ace of ' + suit;
+	  name = 'Ace of ' + this.suit;
   } else if (this.value == 11) {
-	  name = 'Jack of ' + suit;
+	  name = 'Jack of ' + this.suit;
   } else if (this.value == 12) {
-	  name = 'Queen of ' + suit;
-	} else if (this.value == 12) {
-	  name = 'King of ' + suit;
+	  name = 'Queen of ' + this.suit;
+	} else if (this.value == 13) {
+	  name = 'King of ' + this.suit;
 	} else {
-	  name = value + ' of ' + suit;
+	  name = this.value + ' of ' + this.suit;
 	}
   return name;
 };
