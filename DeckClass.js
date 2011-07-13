@@ -35,12 +35,13 @@ Deck.prototype.displayDeck = function() {
 };
 
 Deck.prototype.drawFromDeck = function() {
-  if (indexToDraw >= this.myDeck.length) {
-    this.myDeck.shuffleMyDeck();
+  if (this.indexToDraw >= this.myDeck.length) {
+    this.shuffleDeck();
     this.indexToDraw = 0;
   }
-  this.indexToDraw++;
-  return this.myDeck[this.indexToDraw];
+  var cardDrawn = this.myDeck[this.indexToDraw]);
+	this.indexToDraw++;
+	return cardDrawn;
 };
 
 Deck.prototype.removeFromDeck = function() {
