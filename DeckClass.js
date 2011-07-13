@@ -5,9 +5,7 @@ function Deck() {
 
 Deck.prototype.createDeck = function() {
   var deckIndex = 0;
-  console.log(this.myDeck.length);
   for (var suit = 1; suit <= 4; suit++) {
-	  console.log('actually creating the cards');
     for (var value = 1; value <= 13; value++) {
       if (suit == 1) {
         this.myDeck.push(new Card(value, "Hearts"));
@@ -21,14 +19,9 @@ Deck.prototype.createDeck = function() {
 			deckIndex++;
     }
   }
-  console.log(this.myDeck.length);
-	for(var i = 0; i < this.myDeck.length; i++) {
-	  this.myDeck[i].toString();
-		console.log('hello.');
-	}
 };
 
-Deck.prototype.shuffleMyDeck = function() {
+Deck.prototype.shuffleDeck = function() {
   for (var index = 0; index < this.myDeck.length; index++) {
 	  var randomIndex = Math.floor(Math.random()*this.myDeck.length);
 		var tempCard = this.myDeck[randomIndex];
@@ -38,11 +31,8 @@ Deck.prototype.shuffleMyDeck = function() {
 };
 
 Deck.prototype.displayDeck = function() {
-  console.log('in display function');
-	console.log(this.myDeck.length);
   for (var index = 0; index < this.myDeck.length; index++) {
-    console.log('printing something');
-    console.log(this.myDeck[index].toString() + ', ');  
+    console.log(index + ' ' + this.myDeck[index].toString() + ', ');  
   }
 };
 
@@ -52,5 +42,13 @@ Deck.prototype.drawFromDeck = function() {
 		this.indexToDraw = 0;
 	}
 	return this.myDeck[this.indexToDraw];
-	++this.indexToDraw;
+	this.indexToDraw++;
 };
+
+Deck.prototype.removeFromDeck = function() {
+  
+}
+
+Deck.prototype.addToDeck = function(card) {
+  
+}

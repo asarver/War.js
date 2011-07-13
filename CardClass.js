@@ -1,7 +1,6 @@
 function Card(value, suit) {
   this.cardValue = value;
   this.cardSuit = suit;
-	console.log('creating card obj');
 }
 
 Card.prototype.getCardValue = function() {
@@ -14,16 +13,16 @@ Card.prototype.getCardSuit = function() {
 
 Card.prototype.toString = function() {
   var name = '';
-  if (this.value == 1) {
-	  name = 'Ace of ' + this.suit;
-  } else if (this.value == 11) {
-	  name = 'Jack of ' + this.suit;
-  } else if (this.value == 12) {
-	  name = 'Queen of ' + this.suit;
-	} else if (this.value == 13) {
-	  name = 'King of ' + this.suit;
+  if (this.cardValue == 1) {
+	  name = 'Ace of ' + this.cardSuit;
+  } else if (this.cardValue == 11) {
+	  name = 'Jack of ' + this.cardSuit;
+  } else if (this.cardValue == 12) {
+	  name = 'Queen of ' + this.cardSuit;
+	} else if (this.cardValue == 13) {
+	  name = 'King of ' + this.cardSuit;
 	} else {
-	  name = this.value + ' of ' + this.suit;
+	  name = this.cardValue + ' of ' + this.cardSuit;
 	}
   return name;
 };
