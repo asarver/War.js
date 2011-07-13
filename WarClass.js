@@ -6,7 +6,6 @@ function WarCardGame() {
 }
 
 WarCardGame.prototype.splitDeck = function() {
-  console.log("This is deck length: " + this.gameDeck.getDeckLength());
   for (var location = 0; location < this.gameDeck.getDeckLength(); location += 2) {
     this.myDeck.addToDeck(this.gameDeck.getCard(location));
     this.computerDeck.addToDeck(this.gameDeck.getCard(location + 1));
