@@ -3,7 +3,7 @@ function Deck() {
 	this.indexToDraw = 0;
 }
 
-Deck.prototype.createDeck = function() {
+Deck.prototype.createCards = function() {
   var deckIndex = 0;
   for (var suit = 1; suit <= 4; suit++) {
     for (var value = 1; value <= 13; value++) {
@@ -46,9 +46,21 @@ Deck.prototype.drawFromDeck = function() {
 };
 
 Deck.prototype.removeFromDeck = function() {
-  
+  var cardRemoved = this.myDeck.shift();
+	if (this.indexToDraw != 0) {
+	  this.indexToDraw -= 1;
+	}
+	return cardRemoved;
 }
 
 Deck.prototype.addToDeck = function(card) {
-  
+  this.myDeck.push(card);
+}
+
+Deck.prototype.getDeckLength = function() {
+  return this.myDeck.length;
+}
+
+Deck.prototype.getCard = function(indexNumber) {
+  return this.myDeck[indexNumber];
 }

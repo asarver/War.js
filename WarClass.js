@@ -1,18 +1,15 @@
 function WarCardGame() {
   this.gameDeck = new Deck();
-  this.gameDeck.createDeck();
+  this.gameDeck.createCards();
   this.computerDeck = new Deck();
   this.myDeck = new Deck();
 }
 
 WarCardGame.prototype.splitDeck = function() {
-  console.log("This is deck length: " + this.gameDeck.length);
-  for (var location = 0; location < this.gameDeck.length; location += 2) {
-	  console.log(this.gameDeck[location]);
-    this.myDeck.push(this.gameDeck[location]);
-		console.log(this.myDeck[0]);
-    this.computerDeck.push(this.gameDeck[location + 1]);
-		console.log(this.computerDeck[0]);
+  console.log("This is deck length: " + this.gameDeck.getDeckLength());
+  for (var location = 0; location < this.gameDeck.getDeckLength(); location += 2) {
+    this.myDeck.addToDeck(this.gameDeck.getCard(location));
+    this.computerDeck.addToDeck(this.gameDeck.getCard(location + 1));
   }
 };
 
@@ -35,4 +32,5 @@ WarCardGame.prototype.war = function() {
 
 var newGame = new WarCardGame();
 newGame.gameDeck.shuffleDeck();
-newGame.gameDeck.displayDeck();
+newGame.splitDeck();
+newGame.computerDeck.displayDeck();
