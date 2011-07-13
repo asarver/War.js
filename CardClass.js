@@ -3,6 +3,11 @@ function Card(value, suit) {
   this.cardSuit = suit;
 }
 
+Card.JACK = 11;
+Card.QUEEN = 12;
+Card.KING = 13;
+Card.ACE = 1;
+
 Card.prototype.getCardValue = function() {
   return this.cardValue;
 };
@@ -12,17 +17,16 @@ Card.prototype.getCardSuit = function() {
 };
 
 Card.prototype.toString = function() {
-  var name = '';
-  if (this.cardValue == 1) {
-	  name = 'Ace of ' + this.cardSuit;
-  } else if (this.cardValue == 11) {
-	  name = 'Jack of ' + this.cardSuit;
-  } else if (this.cardValue == 12) {
-	  name = 'Queen of ' + this.cardSuit;
-	} else if (this.cardValue == 13) {
-	  name = 'King of ' + this.cardSuit;
-	} else {
-	  name = this.cardValue + ' of ' + this.cardSuit;
-	}
-  return name;
+  switch (this.cardValue) {
+    case this.JACK:
+      return 'Jack of ' + this.cardSuit;
+    case this.QUEEN:
+      return 'Queen of ' + this.cardSuit;
+    case this.KING:
+      return 'King of ' + this.cardSuit;
+    case this.ACE:
+      return 'Ace of ' + this.cardSuit;
+    default:
+      return this.cardValue + ' of ' + this.cardSuit;
+  }
 };
