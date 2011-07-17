@@ -13,15 +13,16 @@ WarCardGame.prototype.splitDeck = function() {
 };
 
 WarCardGame.prototype.playGame = function() {
-  this.gameDeck.shuffleDeck();
-  this.splitDeck();
+  //this.gameDeck.shuffleDeck();
+//  this.splitDeck();
 
   // need input controller
   var cardOneMyDeck = this.myDeck.drawFromDeck();
   var cardOneCompDeck = this.computerDeck.drawFromDeck();
-  var isEqual = compareCards(cardOneMyDeck, cardOneCompDeck);
+  var isEqual = this.compareCards(cardOneMyDeck, cardOneCompDeck);
   if (isEqual == 0) {
-    isEqual = war();
+    console.log('they\'re equal');
+    isEqual = this.war();
   }
   if (isEqual == 1) {
     var cardRemoved = this.computerDeck.removeFromDeck();
@@ -58,9 +59,9 @@ WarCardGame.prototype.war = function(numToDraw) {
     compCardsDrawn[index] = this.computerDeck.drawFromDeck();
   }
   
-  var isEqual = compareCards(myCardsDrawn[cardsToDraw - 1], compCardsDrawn[cardsToDraw - 1]);
+  var isEqual = this.compareCards(myCardsDrawn[cardsToDraw - 1], compCardsDrawn[cardsToDraw - 1]);
   while (isEqual == 0) {
-    isEqual = war(cardsToDraw++);
+    isEqual = this.war(cardsToDraw++);
   }
   
   if (isEqual == 1) {
@@ -89,6 +90,26 @@ console.log('computer deck');
 newGame.computerDeck.displayDeck();
 console.log('my deck');
 newGame.myDeck.displayDeck();
-var cardOne = newGame.myDeck.drawFromDeck();
-var cardTwo = newGame.computerDeck.drawFromDeck();
-console.log(newGame.compareCards(cardOne, cardTwo));
+newGame.playGame();
+//var cardOne = newGame.myDeck.drawFromDeck();
+//var cardTwo = newGame.computerDeck.drawFromDeck();
+//var isEqual = newGame.compareCards(cardOne, cardTwo);
+//console.log(isEqual);
+//if (isEqual == 1) {
+//  var cardRemoved = newGame.computerDeck.removeFromDeck();
+//  newGame.computerDeck.addToDeck(cardRemoved);
+//  cardRemoved = newGame.myDeck.removeFromDeck();
+//  newGame.computerDeck.addToDeck(cardRemoved);
+//} else {
+//  var cardRemoved = newGame.myDeck.removeFromDeck();
+//  newGame.myDeck.addToDeck(cardRemoved);
+//  cardRemoved = newGame.computerDeck.removeFromDeck();
+//  newGame.myDeck.addToDeck(cardRemoved);
+//}
+console.log('computer deck');
+newGame.computerDeck.displayDeck();
+console.log('computer deck length', newGame.computerDeck.getDeckLength());
+console.log('my deck');
+newGame.myDeck.displayDeck();
+console.log('my deck length', newGame.myDeck.getDeckLength());
+
