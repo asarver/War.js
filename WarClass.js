@@ -12,24 +12,83 @@ WarCardGame.prototype.splitDeck = function() {
   }
 };
 
-WarCardGame.prototype.compareCards = function() {
-  var myCard = this.myDeck.drawFromDeck();
-  var compCard = this.computerDeck.drawFromDeck();
-  var myCardValue = myCard.getCardValue();
-  var compCardValue = compCard.getCardValue();
-  if (myCardValue == compCardValue) {
-    this.war();
-  } else if (myCardValue < compCardValue) {
-    if (myCardValue == 1) {
-      // add the card from comp deck to my deck
-    }
+WarCardGame.prototype.playGame = function() {
+  this.gameDeck.shuffleDeck();
+  this.splitDeck();
+
+  // need input controller
+  var cardOneMyDeck = this.myDeck.drawFromDeck();
+  var cardOneCompDeck = this.computerDeck.drawFromDeck();
+  var isEqual = compareCards(cardOneMyDeck, cardOneCompDeck);
+  if (isEqual == 0) {
+    isEqual = war();
+  }
+  if (isEqual == 1) {
+    var cardRemoved = this.computerDeck.removeFromDeck();
+    this.computerDeck.addToDeck(cardRemoved);
+    cardRemoved = this.myDeck.removeFromDeck();
+    this.computerDeck.addToDeck(cardRemoved);
+  } else {
+    var cardRemoved = this.myDeck.removeFromDeck();
+    this.myDeck.addToDeck(cardRemoved);
+    cardRemoved = this.computerDeck.removeFromDeck();
+    this.myDeck.addToDeck(cardRemoved);
   }
 };
 
-WarCardGame.prototype.war = function() {
+WarCardGame.prototype.compareCards = function(myCard, compCard) {
+  var myValue = myCard.getCardValue();
+  var compValue = compCard.getCardValue();
+  if (myValue == compValue) {
+    return 0;  
+  } else if (compValue > myValue && myValue != 1 || compValue == 1) {
+    return 1;
+  } else {
+    return -1;
+  }
+};
+
+WarCardGame.prototype.war = function(numToDraw) {
+  var cardsToDraw = numToDraw || 2;
+  var myCardsDrawn = new Array(cardsToDraw);
+  var compCardsDrawn = new Array(cardsToDraw);
+  
+  for (var index = 0; index < cardsToDraw; index++) {
+    myCardsDrawn[index] = this.myDeck.drawFromDeck();
+    compCardsDrawn[index] = this.computerDeck.drawFromDeck();
+  }
+  
+  var isEqual = compareCards(myCardsDrawn[cardsToDraw - 1], compCardsDrawn[cardsToDraw - 1]);
+  while (isEqual == 0) {
+    isEqual = war(cardsToDraw++);
+  }
+  
+  if (isEqual == 1) {
+    for (var index = 0; index < cardsToDraw; index++) {
+      var cardRemoved = this.computerDeck.removeFromDeck();
+      this.computerDeck.addToDeck(cardRemoved);
+      cardRemoved = this.myDeck.removeFromDeck();
+      this.computerDeck.addToDeck(cardRemoved);
+    }
+    return 1;
+  } else {
+    for (var index = 0; index < cardsToDraw; index++) {
+      var cardRemoved = this.myDeck.removeFromDeck();
+      this.myDeck.addToDeck(cardRemoved);
+      cardRemoved = this.computerDeck.removeFromDeck();
+      this.myDeck.addToDeck(cardRemoved);
+    }
+    return -1;
+  }
 };
 
 var newGame = new WarCardGame();
 newGame.gameDeck.shuffleDeck();
 newGame.splitDeck();
+console.log('computer deck');
 newGame.computerDeck.displayDeck();
+console.log('my deck');
+newGame.myDeck.displayDeck();
+var cardOne = newGame.myDeck.drawFromDeck();
+var cardTwo = newGame.computerDeck.drawFromDeck();
+console.log(newGame.compareCards(cardOne, cardTwo));

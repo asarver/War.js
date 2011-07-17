@@ -39,7 +39,7 @@ Deck.prototype.drawFromDeck = function() {
     this.shuffleDeck();
     this.indexToDraw = 0;
   }
-  var cardDrawn = this.myDeck[this.indexToDraw]);
+  var cardDrawn = this.myDeck[this.indexToDraw];
 	this.indexToDraw++;
 	return cardDrawn;
 };
