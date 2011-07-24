@@ -36,7 +36,7 @@ War.prototype.playGame = function() {
     // add cards to My Deck
     this.addCardsToWinningDeck(this.myDeck, this.computerDeck);
   } else if (value == 0) {
-    this.war();
+    console.log(this.war());
   }
   
   console.log('Computer Deck: ', 'length = ', this.computerDeck.getDeckLength());
@@ -46,8 +46,54 @@ War.prototype.playGame = function() {
 };
 
 War.prototype.war = function() {
-  var myDeckHasEnough = this.myDeck.getIndexToDraw(); + 2 < this.myDeck.getDeckLength();
-  var compDeckHasEnough = this.computerDeck.getIndexToDraw() + 2 < this.myDeck.getDeckLength();
+  var cardsToDraw = 2;
+  var myDeckHasEnough = this.myDeck.getIndexToDraw(); + cardsToDraw < this.myDeck.getDeckLength();
+  var compDeckHasEnough = this.computerDeck.getIndexToDraw() + cardsToDraw < this.myDeck.getDeckLength();
+  if (!myDeckHasEnough || !compDeckHasEnough) {
+    if (!myDeckHasEnough && compDeckHasEnough || this.myDeck.getDeckLength() < this.computerDeck.getDeckLength()) {
+      // computer wins
+      return -14;
+    } else if (myDeckHasEnough && !compDeckHasEnough || this.computerDeck.getDeckLength() < this.myDeck.getDeckLength()) {
+      // player wins
+      return 14;
+    } else {
+      var compCard = this.computerDeck.getCard(this.computerDeck.getDeckLength());
+      var myCard = this.myDeck.getCard(this.myDeck.getDeckLength());
+      var value = compCard.compareTo(myCard);
+      if (value == -1) {
+        // computer wins
+        return -14;
+      } else if (value == 1) {
+        // player wins
+        return 14;
+      } else {
+        return 'draw';
+      }
+    }
+  } else {
+    var myCardsDrawn = new Array(cardsToDraw);
+    var compCardsDrawn = new Array(cardsToDraw);
+    
+    for (var index = 0; index < cardsToDraw; index++) {
+      myCardsDrawn[index] = this.myDeck.drawFromDeck();
+      compCardsDrawn[index] = this.computerDeck.drawFromDeck();
+    }
+    
+    var value = compCardsDrawn[cardsToDraw - 1].compareTo(myCardsDrawn[cardsToDraw - 1]);
+    if (value == 0) {
+      console.log('will implement recursion here');
+      value = this.war();
+    } else if (value == -1) {
+      for (var index = 0; index <= cardsToDraw; index++) {
+        this.addCardsToWinningDeck(this.computerDeck, this.myDeck);
+      }
+    } else if (value == 1) {
+      for (var index = 0; index <= cardsToDraw; index++) {
+        this.addCardsToWinningDeck(this.myDeck, this.computerDeck);
+      }
+    }
+    return value;
+  }
 };
 
 War.prototype.addCardsToWinningDeck = function(winningDeck, losingDeck) {
