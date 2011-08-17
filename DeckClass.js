@@ -30,7 +30,8 @@ Deck.prototype.shuffleDeck = function() {
 
 Deck.prototype.displayDeck = function() {
   for (var index = 0; index < this.myDeck.length; index++) {
-    console.log(index + ' ' + this.myDeck[index].toString() + ', ');  
+    console.log(index);
+    console.log(' ' + this.myDeck[index].toString() + ', ');  
   }
 };
 
