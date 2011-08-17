@@ -29,26 +29,47 @@ War.prototype.playGame = function() {
   var value = cardOne.compareTo(cardTwo);
   console.log(value);
   
-  if (value == -1) {
-    // add cards to Comp Deck
-    this.addCardsToWinningDeck(this.computerDeck, this.myDeck);
-  } else if (value == 1) {
-    // add cards to My Deck
-    this.addCardsToWinningDeck(this.myDeck, this.computerDeck);
-  } else if (value == 0) {
-    console.log(this.war());
+  while (value == 0 || value == -1 || value == 1) {
+    if (value == -1) {
+      var indexDraw = this.computerDeck.getIndexToDraw();
+      for (var index = 0; index < indexDraw; index++) {
+        this.addCardsToWinningDeck(this.computerDeck, this.myDeck);
+      }
+    } else if (value == 1) {
+      var indexDraw = this.myDeck.getIndexToDraw();
+      for (var index = 0; index < indexDraw; index++) {
+        this.addCardsToWinningDeck(this.myDeck, this.computerDeck);
+      }
+    } else if (value == 0) {
+      value = this.war();
+    }
+    cardOne = this.computerDeck.drawFromDeck();
+    console.log(this.computerDeck.getIndexToDraw());
+    cardTwo = this.myDeck.drawFromDeck();
+    console.log(this.myDeck.getIndexToDraw());
+    console.log(cardOne.toString());
+    console.log(cardTwo.toString());
+    value = cardOne.compareTo(cardTwo);
+    console.log(value);
+    console.log('Computer Deck: ', 'length = ', this.computerDeck.getDeckLength());
+    this.computerDeck.displayDeck();
+    console.log('My Deck: ', 'length = ', this.myDeck.getDeckLength());
+    this.myDeck.displayDeck();
   }
-  
-  console.log('Computer Deck: ', 'length = ', this.computerDeck.getDeckLength());
-  this.computerDeck.displayDeck();
-  console.log('My Deck: ', 'length = ', this.myDeck.getDeckLength());
-  this.myDeck.displayDeck();
+
+  if (value == -14) {
+    console.log('Computer won.');
+  } else if (value == 14) {
+    console.log('I won.');
+  } else {
+    console.log('No one won. Draw.');
+  }
 };
 
 War.prototype.war = function() {
   var cardsToDraw = 2;
-  var myDeckHasEnough = this.myDeck.getIndexToDraw(); + cardsToDraw < this.myDeck.getDeckLength();
-  var compDeckHasEnough = this.computerDeck.getIndexToDraw() + cardsToDraw < this.myDeck.getDeckLength();
+  var myDeckHasEnough = this.myDeck.getIndexToDraw() + cardsToDraw < this.myDeck.getDeckLength();
+  var compDeckHasEnough = this.computerDeck.getIndexToDraw() + cardsToDraw < this.computerDeck.getDeckLength();
   if (!myDeckHasEnough || !compDeckHasEnough) {
     if (!myDeckHasEnough && compDeckHasEnough || this.myDeck.getDeckLength() < this.computerDeck.getDeckLength()) {
       // computer wins
@@ -57,8 +78,8 @@ War.prototype.war = function() {
       // player wins
       return 14;
     } else {
-      var compCard = this.computerDeck.getCard(this.computerDeck.getDeckLength());
-      var myCard = this.myDeck.getCard(this.myDeck.getDeckLength());
+      var compCard = this.computerDeck.getCard(this.computerDeck.getDeckLength() - 1);
+      var myCard = this.myDeck.getCard(this.myDeck.getDeckLength() - 1);
       var value = compCard.compareTo(myCard);
       if (value == -1) {
         // computer wins
@@ -82,15 +103,7 @@ War.prototype.war = function() {
     var value = compCardsDrawn[cardsToDraw - 1].compareTo(myCardsDrawn[cardsToDraw - 1]);
     if (value == 0) {
       console.log('will implement recursion here');
-      value = this.war();
-    } else if (value == -1) {
-      for (var index = 0; index <= cardsToDraw; index++) {
-        this.addCardsToWinningDeck(this.computerDeck, this.myDeck);
-      }
-    } else if (value == 1) {
-      for (var index = 0; index <= cardsToDraw; index++) {
-        this.addCardsToWinningDeck(this.myDeck, this.computerDeck);
-      }
+      return this.war();
     }
     return value;
   }
