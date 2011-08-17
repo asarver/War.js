@@ -30,3 +30,13 @@ Card.prototype.toString = function() {
       return this.cardValue + ' of ' + this.cardSuit;
   }
 };
+
+Card.prototype.compareTo = function(cardToCompare) {
+  if (this.cardValue == cardToCompare.cardValue) {
+    return 0;  
+  } else if (cardToCompare.cardValue > this.cardValue && this.cardValue != 1 || cardToCompare.cardValue == 1) {
+    return 1;
+  } else {
+    return -1;
+  }
+};

@@ -41,8 +41,8 @@ Deck.prototype.drawFromDeck = function() {
     this.indexToDraw = 0;
   }
   var cardDrawn = this.myDeck[this.indexToDraw];
-	this.indexToDraw++;
-	return cardDrawn;
+  this.indexToDraw++;
+  return cardDrawn;
 };
 
 Deck.prototype.removeFromDeck = function() {
@@ -63,4 +63,8 @@ Deck.prototype.getDeckLength = function() {
 
 Deck.prototype.getCard = function(indexNumber) {
   return this.myDeck[indexNumber];
+}
+
+Deck.prototype.getIndexToDraw = function() {
+  return this.indexToDraw;
 }
